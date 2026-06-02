@@ -1,6 +1,10 @@
 # Claude Code session files
 .claude/
 
+# Large video files
+*.mov
+*.mp4
+
 # OS
 .DS_Store
 Thumbs.db
