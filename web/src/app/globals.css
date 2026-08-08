@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+/* Brand tokens — ported directly from the current index.html's :root
+   block. Do not introduce new colors outside this palette without
+   confirmation (CLAUDE.md brand rule carries over from the static site). */
+:root {
+  --blue: #0072ce;
+  --blue-deep: #005ba8;
+  --blue-night: #003562;
+  --silver: #52677c;
+  --silver-light: #c7ccd1;
+  --paper: #ffffff;
+  --mist: #eef3f8;
+  --ink: #0a2740;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+}
+
+@theme inline {
+  --color-blue: var(--blue);
+  --color-blue-deep: var(--blue-deep);
+  --color-blue-night: var(--blue-night);
+  --color-silver: var(--silver);
+  --color-silver-light: var(--silver-light);
+  --color-paper: var(--paper);
+  --color-mist: var(--mist);
+  --color-ink: var(--ink);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-head: var(--font-head);
+  --font-body: var(--font-body);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+h1,
+h2,
+h3,
+h4,
+.head {
+  font-family: var(--font-head);
+}
+
+/* The chapter's signature parallelogram/skew button shape — same
+   clip-path used by .btn and .navbtn on the static site. Reuse this
+   class rather than inventing a new button style. */
+.btn-skew {
+  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+}
