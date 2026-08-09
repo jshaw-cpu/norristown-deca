@@ -132,6 +132,12 @@ export default async function OfficerDashboard() {
           >
             Practice Bank &rarr;
           </Link>
+          <Link
+            href="/officer/permission-slips"
+            className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition"
+          >
+            Permission Slips &rarr;
+          </Link>
           {session.isAdvisor && (
             <Link
               href="/officer/accountability"

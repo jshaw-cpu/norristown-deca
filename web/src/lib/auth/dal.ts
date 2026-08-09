@@ -12,6 +12,7 @@ export type SessionProfile = {
   fullName: string | null;
   isAdvisor: boolean;
   memberId: string | null;
+  childMemberId: string | null;
 };
 
 // The real, DB-backed check. proxy.ts's role check is optimistic (JWT
@@ -31,7 +32,7 @@ export const verifySession = cache(async (): Promise<SessionProfile> => {
 
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
-    .select("role, full_name, is_advisor, member_id")
+    .select("role, full_name, is_advisor, member_id, child_member_id")
     .eq("id", data.user.id)
     .single();
 
@@ -46,6 +47,7 @@ export const verifySession = cache(async (): Promise<SessionProfile> => {
     fullName: profile.full_name,
     isAdvisor: profile.is_advisor,
     memberId: profile.member_id,
+    childMemberId: profile.child_member_id,
   };
 });
 

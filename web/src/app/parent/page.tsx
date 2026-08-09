@@ -1,6 +1,8 @@
 import { requireRole } from "@/lib/auth/dal";
 import { logout } from "@/app/actions/auth";
 import { HARD_DEADLINES, daysBetween } from "@/lib/data/season-calendar";
+import { listSlipsForMember } from "@/lib/data/permissionSlips";
+import type { SlipStatus } from "@/lib/data/permissionSlips";
 
 const DATE_FORMAT: Intl.DateTimeFormatOptions = {
   month: "long",
@@ -16,6 +18,18 @@ const PARENT_RELEVANT_LABELS = new Set(
   ["Six-Week Officer Shadow Start"].map((l) => l),
 );
 
+const STATUS_LABEL: Record<SlipStatus, string> = {
+  not_submitted: "Not Submitted",
+  submitted: "Submitted",
+  approved: "Approved",
+};
+
+const STATUS_COLOR: Record<SlipStatus, string> = {
+  not_submitted: "text-silver",
+  submitted: "text-blue",
+  approved: "text-blue-night",
+};
+
 export default async function ParentDashboard() {
   const session = await requireRole("parent");
 
@@ -24,6 +38,8 @@ export default async function ParentDashboard() {
     .filter((d) => !PARENT_RELEVANT_LABELS.has(d.label))
     .map((d) => ({ ...d, daysUntil: daysBetween(now, new Date(d.date)) }))
     .sort((a, b) => a.daysUntil - b.daysUntil);
+
+  const slips = await listSlipsForMember(session.childMemberId);
 
   return (
     <main className="min-h-screen bg-mist px-6 py-16">
@@ -35,9 +51,38 @@ export default async function ParentDashboard() {
           Welcome, {session.fullName ?? session.email}
         </h1>
         <p className="text-silver font-body mb-10">
-          Permission slip status and volunteer sign-ups land here next in
-          Phase 3.
+          Volunteer sign-ups land here next in Phase 3.
         </p>
+
+        <section className="bg-paper border border-silver-light p-8 mb-6">
+          <p className="font-head font-bold text-xs uppercase tracking-[0.2em] text-silver mb-4">
+            Permission Slips
+          </p>
+          {slips === null ? (
+            <p className="text-ink text-sm">
+              Your account isn&rsquo;t linked to a student yet. Ask an
+              officer to add your child&rsquo;s Member ID to your profile.
+            </p>
+          ) : (
+            <ul className="divide-y divide-silver-light">
+              {slips.map((slip) => (
+                <li
+                  key={slip.conference}
+                  className="flex items-center justify-between py-3 first:pt-0 last:pb-0"
+                >
+                  <p className="font-head font-bold text-sm text-blue-night">
+                    {slip.conference}
+                  </p>
+                  <span
+                    className={`font-head font-black text-sm uppercase ${STATUS_COLOR[slip.status]}`}
+                  >
+                    {STATUS_LABEL[slip.status]}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
 
         <section className="bg-paper border border-silver-light p-8">
           <p className="font-head font-bold text-xs uppercase tracking-[0.2em] text-silver mb-4">
