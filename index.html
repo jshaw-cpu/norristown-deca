@@ -80,6 +80,17 @@
   .hero-stats .stat b{font-family:var(--head);font-weight:900;font-size:2.6rem;color:#fff;display:block;line-height:1}
   .hero-stats .stat span{color:var(--silver-light);font-family:var(--head);font-weight:600;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase}
 
+  /* UP NEXT STRIP */
+  .upnext{background:var(--mist);border-bottom:1px solid #dde6ef}
+  .upnext-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 0;flex-wrap:wrap}
+  .upnext-tag{font-family:var(--head);font-weight:900;font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--blue);background:#fff;border:1.5px solid var(--blue);padding:8px 16px;flex:none}
+  .upnext-info{flex:1;min-width:200px}
+  .upnext-info h3{font-family:var(--head);font-weight:900;font-size:1.2rem;text-transform:uppercase;letter-spacing:-.01em;color:var(--blue-night)}
+  .upnext-info span{color:#52677c;font-size:.9rem;font-family:var(--head);font-weight:600}
+  .upnext-link{white-space:nowrap;font-family:var(--head);font-weight:800;font-size:.85rem;letter-spacing:.03em;color:var(--blue)}
+  .upnext-link:hover{color:var(--blue-deep)}
+  @media(max-width:640px){.upnext-inner{flex-direction:column;align-items:flex-start}}
+
   /* MANIFESTO */
   .manifesto{background:var(--blue-night);color:#fff;overflow:hidden;border-top:1px solid rgba(255,255,255,.08)}
   .marquee{display:flex;white-space:nowrap;padding:34px 0}
@@ -177,6 +188,7 @@
   .roll-item:hover .r-event{color:#fff}
   .roll-item .r-name{color:#52677c;font-size:.88rem}
   .roll-item:hover .r-name{color:rgba(255,255,255,.72)}
+  .roll-item:hover .r-year{color:rgba(255,255,255,.5)}
   .roll-item .r-place{font-family:var(--head);font-weight:900;font-size:.8rem;letter-spacing:.1em;color:var(--blue);white-space:nowrap}
   .roll-item:hover .r-place{color:#4aa3e8}
   .r-year{font-size:.78rem;color:var(--silver);font-family:var(--head);font-weight:600;margin-left:8px}
@@ -211,9 +223,10 @@
   /* ICDC PHOTO */
   .icdc-photo{text-align:center;margin-bottom:48px}
   .icdc-trophy-photo{max-width:500px;width:100%;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.25);border:3px solid rgba(255,255,255,.12)}
-  .icdc-photo-cap{font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:12px}
+  .icdc-photo-cap{font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--silver);margin-top:12px}
 
-  /* NEXT BIG THING HERO BADGE */
+  /* HERO HASHTAG BADGE */
+  .hero-tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--head);font-weight:800;font-size:.78rem;letter-spacing:.1em;color:#8fc4ee;background:rgba(74,163,232,.14);border:1px solid rgba(74,163,232,.5);padding:8px 18px;margin-bottom:22px}
 
   /* ADVISOR */
   .advisor{display:grid;grid-template-columns:.82fr 1.18fr;gap:60px;align-items:center}
@@ -262,14 +275,26 @@
   .award-card{background:#fff;border-radius:16px;padding:40px 32px;position:relative;overflow:hidden;border-top:4px solid var(--blue);transition:transform .25s,box-shadow .25s}
   .award-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,0,0,.12)}
   .award-card--featured{background:var(--blue-night);color:#fff;border-top:4px solid var(--blue)}
-  .award-card--featured h3{color:#fff}
-  .award-card--featured p{color:rgba(255,255,255,.82)}
+  .award-card.award-card--featured h3{color:#fff}
+  .award-card.award-card--featured p{color:rgba(255,255,255,.82)}
   .award-card--featured .award-label{color:rgba(255,255,255,.6)}
   .award-icon{font-size:2.2rem;color:var(--blue);margin-bottom:12px}
   .award-card--featured .award-icon{color:rgba(255,255,255,.7)}
   .award-label{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
   .award-card h3{font-family:var(--head);font-weight:900;font-size:1.25rem;line-height:1.2;color:var(--blue-night);margin-bottom:14px}
   .award-card p{font-size:.88rem;line-height:1.65;color:#444}
+
+  /* GET INVOLVED */
+  #involved{background:var(--paper)}
+  .involve-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:56px}
+  @media(max-width:900px){.involve-grid{grid-template-columns:1fr}}
+  .involve-card{background:var(--mist);border:1px solid #dde6ef;border-top:4px solid var(--blue);padding:38px 32px;transition:.25s}
+  .involve-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,53,98,.1);background:#fff}
+  .involve-num{font-family:var(--head);font-weight:900;font-size:2.2rem;color:rgba(0,53,98,.12);line-height:1;margin-bottom:12px}
+  .involve-card h3{font-family:var(--head);font-weight:900;font-size:1.3rem;text-transform:uppercase;letter-spacing:-.01em;color:var(--blue-night);margin-bottom:12px}
+  .involve-card p{color:#52677c;font-size:.95rem;line-height:1.65;margin-bottom:18px}
+  .involve-link{font-family:var(--head);font-weight:800;font-size:.86rem;letter-spacing:.03em;color:var(--blue)}
+  .involve-link:hover{color:var(--blue-deep)}
 
   /* ALUMNI */
   #alumni{background:var(--blue-night);color:#fff;position:relative;overflow:hidden}
@@ -284,7 +309,7 @@
   .alumni-stat b{display:block;font-family:var(--head);font-weight:900;font-size:2rem;color:#fff;line-height:1}
   .alumni-stat span{display:block;font-family:var(--head);font-weight:600;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--silver-light);margin-top:6px}
   .alumni-cta{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap}
-  .alumni-txt .eyebrow{margin-top:16px}
+  .alumni-txt .eyebrow{margin-top:16px;color:#4aa3e8}
   .alumni-txt h2{font-family:var(--head);font-weight:900;font-size:clamp(2.2rem,4.6vw,3.6rem);line-height:1;letter-spacing:-.025em;text-transform:uppercase;margin:16px 0 0;color:#fff}
   .alumni-txt p{color:rgba(255,255,255,.72);font-size:1.1rem;margin-top:20px}
   .alumni-quote{border-left:5px solid #4aa3e8;padding-left:24px;margin-top:28px;font-family:var(--head);font-weight:700;font-style:italic;color:rgba(255,255,255,.88);font-size:1.08rem}
@@ -296,12 +321,9 @@
   #join .eyebrow{margin-top:16px;color:rgba(255,255,255,.7);position:relative;z-index:2}
   #join h2{font-weight:900;font-size:clamp(2.4rem,5.5vw,4.4rem);letter-spacing:-.03em;position:relative;z-index:2;max-width:16ch;margin:16px auto 0;text-transform:uppercase;line-height:.92}
   #join p{color:rgba(255,255,255,.88);font-size:1.18rem;max-width:46ch;margin:24px auto 0;position:relative;z-index:2}
-  .join-layout{display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center;margin-top:50px;position:relative;z-index:2;text-align:left}
+  .join-layout{max-width:640px;margin:50px auto 0;position:relative;z-index:2;text-align:left}
   .join-actions .hero-cta{justify-content:flex-start}
   .join-actions p{color:rgba(255,255,255,.78);font-size:.96rem;margin-top:18px;max-width:38ch}
-  .qr-wrap{background:rgba(255,255,255,.12);padding:24px;border:2px solid rgba(255,255,255,.25);text-align:center}
-  .qr-wrap img{width:180px;height:180px;display:block}
-  .qr-label{color:rgba(255,255,255,.8);font-family:var(--head);font-weight:700;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;margin-top:12px}
   .btn-white{background:#fff;color:var(--blue)}
   .btn-white:hover{background:var(--blue-night);color:#fff;transform:translateY(-3px)}
 
@@ -329,7 +351,7 @@
     .champ-featured,.champ-roll{grid-template-columns:1fr}
     .scholarship-row{grid-template-columns:1fr}
     .spotlight-grid{grid-template-columns:1fr}
-    .join-layout{grid-template-columns:1fr;text-align:center}
+    .join-layout{text-align:center}
     .join-actions .hero-cta{justify-content:center}
     .legacy-grid{grid-template-columns:repeat(2,1fr)}
   }
@@ -438,6 +460,7 @@
   <div class="hero-grid"></div>
   <div class="wrap hero-inner">
     <div class="eyebrow">Norristown Area High School &middot; Pennsylvania DECA</div>
+    <div class="hero-tag">&#9670;&nbsp; #LeadThePack</div>
     <h1>Own Your<br><span class="blue">Future.</span> <span class="stroke">Lead</span> The Pack.</h1>
     <p class="sub">This is not a club. It is the launchpad for the next generation of emerging leaders and entrepreneurs in marketing, finance, hospitality, and management.</p>
     <div class="hero-cta">
@@ -453,6 +476,17 @@
     </div>
   </div>
 </header>
+
+<div class="upnext reveal">
+  <div class="wrap upnext-inner">
+    <div class="upnext-tag">Up Next</div>
+    <div class="upnext-info">
+      <h3>District Conference</h3>
+      <span>January 2027 &bull; Southeastern PA</span>
+    </div>
+    <a href="#resources" class="upnext-link">See Key Dates &amp; Prep &rarr;</a>
+  </div>
+</div>
 
 <div class="manifesto">
   <div class="marquee">
@@ -854,6 +888,11 @@
               <div class="lc-text"><strong>Join NAHS DECA</strong><span>Membership form &mdash; takes 2 minutes</span></div>
               <div class="lc-arrow">&#8599;</div>
             </a>
+            <a href="https://www.instagram.com/nahsdeca/" target="_blank" rel="noopener" class="link-card">
+              <div class="lc-icon">&#128248;</div>
+              <div class="lc-text"><strong>Instagram: @nahsdeca</strong><span>Chapter life, competition recaps &mdash; #LeadThePack</span></div>
+              <div class="lc-arrow">&#8599;</div>
+            </a>
             <a href="https://www.deca.org" target="_blank" rel="noopener" class="link-card">
               <div class="lc-icon">&#127758;</div>
               <div class="lc-text"><strong>DECA Inc.</strong><span>National organization headquarters &mdash; news and resources</span></div>
@@ -981,6 +1020,37 @@
   </div>
 </section>
 
+<section id="involved">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="accent-bar"></div>
+      <div class="eyebrow">Beyond Membership</div>
+      <h2>Three ways to back the chapter.</h2>
+      <p>You don&rsquo;t have to be a student to help build the next generation of Norristown DECA leaders.</p>
+    </div>
+    <div class="involve-grid reveal">
+      <div class="involve-card">
+        <div class="involve-num">01</div>
+        <h3>Sponsor the Chapter</h3>
+        <p>Fund competition travel, materials, and scholarships for members heading to Districts, States, and ICDC.</p>
+        <a href="mailto:jshaw@nasd.k12.pa.us?subject=DECA%20Sponsorship" class="involve-link">Become a Sponsor &rarr;</a>
+      </div>
+      <div class="involve-card">
+        <div class="involve-num">02</div>
+        <h3>Judge or Mentor</h3>
+        <p>Industry professionals evaluate mock role-plays and coach members through the judge&rsquo;s lens before competition day.</p>
+        <a href="mailto:jshaw@nasd.k12.pa.us?subject=DECA%20Judge%20or%20Mentor" class="involve-link">Volunteer to Judge &rarr;</a>
+      </div>
+      <div class="involve-card">
+        <div class="involve-num">03</div>
+        <h3>Reconnect as Alumni</h3>
+        <p>Once an Eagle, always an Eagle. Join the alumni network and mentor the next class of competitors.</p>
+        <a href="#alumni" class="involve-link">Meet the Alumni Network &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <section id="awards">
   <div class="wrap">
@@ -1019,7 +1089,7 @@
     <div class="accent-bar"></div>
     <div class="eyebrow">Take the First Step</div>
     <h2>Your future starts with one decision.</h2>
-    <p>Ready to claim your spot? Fill out the membership form or scan the QR code below. An officer will follow up with meeting details and next steps.</p>
+    <p>Ready to claim your spot? Fill out the membership form below. An officer will follow up with meeting details and next steps.</p>
     <div class="join-layout">
       <div class="join-actions">
         <div class="hero-cta">
@@ -1027,10 +1097,6 @@
           <a href="mailto:jshaw@nasd.k12.pa.us" class="btn btn-ghost">Email Mr. Shaw</a>
         </div>
         <p>Applications are reviewed by the officer team. Membership is open to all NAHS students enrolled in a business or marketing course.</p>
-      </div>
-      <div class="qr-wrap">
-        <img src="data:image/png;base64,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" alt="QR code to join Norristown DECA">
-        <div class="qr-label">Scan to Apply</div>
       </div>
     </div>
   </div>
@@ -1052,6 +1118,7 @@
         <a href="#resources">Member Resources</a>
         <a href="#awards">Chapter Awards</a>
         <a href="#alumni">Alumni Network</a>
+        <a href="#involved">Get Involved</a>
         <a href="#spotlight">Member Spotlight</a>
         <a href="#officers">Leadership Team</a>
         <a href="#join">Join the Chapter</a>
@@ -1061,6 +1128,7 @@
         <a href="https://www.mypadeca.org/" target="_blank" rel="noopener">Pennsylvania DECA</a>
         <a href="https://www.deca.org/" target="_blank" rel="noopener">DECA Inc.</a>
         <a href="https://www.facebook.com/nahsdeca" target="_blank" rel="noopener">Facebook: @nahsdeca</a>
+        <a href="https://www.instagram.com/nahsdeca/" target="_blank" rel="noopener">Instagram: @nahsdeca</a>
         <a href="mailto:jshaw@nasd.k12.pa.us">Contact the Advisor</a>
       </div>
     </div>
