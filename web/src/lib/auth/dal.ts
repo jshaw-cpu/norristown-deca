@@ -10,6 +10,7 @@ export type SessionProfile = {
   email: string;
   role: Role;
   fullName: string | null;
+  isAdvisor: boolean;
 };
 
 // The real, DB-backed check. proxy.ts's role check is optimistic (JWT
@@ -29,7 +30,7 @@ export const verifySession = cache(async (): Promise<SessionProfile> => {
 
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
-    .select("role, full_name")
+    .select("role, full_name, is_advisor")
     .eq("id", data.user.id)
     .single();
 
@@ -42,6 +43,7 @@ export const verifySession = cache(async (): Promise<SessionProfile> => {
     email: data.user.email ?? "",
     role: profile.role as Role,
     fullName: profile.full_name,
+    isAdvisor: profile.is_advisor,
   };
 });
 
@@ -64,6 +66,17 @@ export async function requireRole(role: Role): Promise<SessionProfile> {
 export async function requireMemberTier(): Promise<SessionProfile> {
   const session = await verifySession();
   if (session.role !== "member" && session.role !== "officer") {
+    redirect("/not-authorized");
+  }
+  return session;
+}
+
+// Advisor-only pages (e.g. the officer accountability review queue). Not
+// every officer account is the advisor — see 0003_officer_accountability.sql
+// for why this is a separate flag rather than a role value.
+export async function requireAdvisor(): Promise<SessionProfile> {
+  const session = await verifySession();
+  if (session.role !== "officer" || !session.isAdvisor) {
     redirect("/not-authorized");
   }
   return session;

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { requireRole } from "@/lib/auth/dal";
 import { logout } from "@/app/actions/auth";
 import { getChapterPulse } from "@/lib/data/brief";
@@ -123,6 +124,15 @@ export default async function OfficerDashboard() {
             ))}
           </ul>
         </section>
+
+        {session.isAdvisor && (
+          <Link
+            href="/officer/accountability"
+            className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition mb-10"
+          >
+            Review Queue &rarr;
+          </Link>
+        )}
 
         <form action={logout}>
           <button className="font-head font-bold text-sm text-blue hover:text-blue-deep transition">
