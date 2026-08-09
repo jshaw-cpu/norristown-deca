@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { requireMemberTier } from "@/lib/auth/dal";
 import { logout } from "@/app/actions/auth";
 
@@ -18,14 +19,19 @@ export default async function MemberDashboard() {
           {session.role === "officer" && " (member-tier access granted)"}
         </p>
 
-        <div className="bg-paper border border-silver-light p-8">
+        <div className="bg-paper border border-silver-light p-8 mb-6">
           <p className="font-body text-ink">
-            This is the member dashboard placeholder. Phase 3 wires in the
-            real practice bank (role-plays and tests already confirmed in
-            Drive), personal progress from Conference Results, and the
-            training calendar.
+            Personal progress from Conference Results and the training
+            calendar land here next in Phase 3.
           </p>
         </div>
+
+        <Link
+          href="/member/practice-bank"
+          className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition mb-10"
+        >
+          Practice Bank &rarr;
+        </Link>
 
         <form action={logout} className="mt-8">
           <button className="font-head font-bold text-sm text-blue hover:text-blue-deep transition">

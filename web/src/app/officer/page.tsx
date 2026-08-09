@@ -125,14 +125,22 @@ export default async function OfficerDashboard() {
           </ul>
         </section>
 
-        {session.isAdvisor && (
+        <div className="flex flex-wrap gap-6 mb-10">
           <Link
-            href="/officer/accountability"
-            className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition mb-10"
+            href="/officer/practice-bank"
+            className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition"
           >
-            Review Queue &rarr;
+            Practice Bank &rarr;
           </Link>
-        )}
+          {session.isAdvisor && (
+            <Link
+              href="/officer/accountability"
+              className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition"
+            >
+              Review Queue &rarr;
+            </Link>
+          )}
+        </div>
 
         <form action={logout}>
           <button className="font-head font-bold text-sm text-blue hover:text-blue-deep transition">
