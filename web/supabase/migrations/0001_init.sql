@@ -4,6 +4,10 @@
 -- Members / Events / Mock Results / Conference Results tabs (Chapter
 -- Operations Playbook Section 9.1) so the site can read the same data
 -- model the chapter already uses, not a second, divergent one.
+--
+-- Safe to re-run: every statement below either uses IF NOT EXISTS/OR
+-- REPLACE, or is wrapped so re-running after a partial failure won't
+-- error on objects that already exist.
 
 create extension if not exists "pgcrypto";
 
@@ -11,9 +15,13 @@ create extension if not exists "pgcrypto";
 -- Roles and profiles
 -- ---------------------------------------------------------------------
 
-create type public.app_role as enum ('member', 'officer', 'parent');
+do $$ begin
+  create type public.app_role as enum ('member', 'officer', 'parent');
+exception
+  when duplicate_object then null;
+end $$;
 
-create table public.profiles (
+create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   full_name text,
   role public.app_role not null,
@@ -23,27 +31,29 @@ create table public.profiles (
 
 alter table public.profiles enable row level security;
 
+drop policy if exists "Users can read their own profile" on public.profiles;
 create policy "Users can read their own profile"
   on public.profiles for select
   using (auth.uid() = id);
 
+-- These two policies read the role from the JWT (auth.jwt()), NOT by
+-- querying public.profiles again — a policy on a table that re-queries
+-- that same table is a classic Postgres RLS trap ("infinite recursion
+-- detected in policy for relation profiles"), because evaluating the
+-- policy requires re-evaluating every policy on the table, including
+-- itself. Reading the role out of the JWT's app_metadata (kept in sync
+-- by the sync_role_to_jwt trigger below) avoids the self-reference
+-- entirely. Other tables' officer-check policies are fine as written —
+-- they query profiles from a *different* table, so there's no cycle.
+drop policy if exists "Officers can read every profile" on public.profiles;
 create policy "Officers can read every profile"
   on public.profiles for select
-  using (
-    exists (
-      select 1 from public.profiles p
-      where p.id = auth.uid() and p.role = 'officer'
-    )
-  );
+  using ((auth.jwt() -> 'app_metadata' ->> 'role') = 'officer');
 
+drop policy if exists "Officers can update any profile" on public.profiles;
 create policy "Officers can update any profile"
   on public.profiles for update
-  using (
-    exists (
-      select 1 from public.profiles p
-      where p.id = auth.uid() and p.role = 'officer'
-    )
-  );
+  using ((auth.jwt() -> 'app_metadata' ->> 'role') = 'officer');
 
 -- Sync role into the JWT's app_metadata so proxy.ts can do a cheap,
 -- cookie-only optimistic check without a DB round trip on every request.
@@ -64,6 +74,7 @@ begin
 end;
 $$;
 
+drop trigger if exists on_profile_role_change on public.profiles;
 create trigger on_profile_role_change
   after insert or update of role on public.profiles
   for each row
@@ -73,7 +84,7 @@ create trigger on_profile_role_change
 -- Events (Playbook 9.1 "Events" tab)
 -- ---------------------------------------------------------------------
 
-create table public.events (
+create table if not exists public.events (
   event_code text primary key,
   event_name text not null,
   category text not null,            -- Individual Series | Team Decision Making | Principles | Written
@@ -83,10 +94,12 @@ create table public.events (
 
 alter table public.events enable row level security;
 
+drop policy if exists "Anyone can read events" on public.events;
 create policy "Anyone can read events"
   on public.events for select
   using (true);
 
+drop policy if exists "Officers can manage events" on public.events;
 create policy "Officers can manage events"
   on public.events for all
   using (
@@ -97,7 +110,7 @@ create policy "Officers can manage events"
 -- Members (Playbook 9.1 "Members" tab — one row per member per season)
 -- ---------------------------------------------------------------------
 
-create table public.season_members (
+create table if not exists public.season_members (
   id uuid primary key default gen_random_uuid(),
   member_id text not null,
   member_name text not null,
@@ -114,12 +127,14 @@ create table public.season_members (
 
 alter table public.season_members enable row level security;
 
+drop policy if exists "Members can read their own season rows" on public.season_members;
 create policy "Members can read their own season rows"
   on public.season_members for select
   using (
     member_id = (select p.member_id from public.profiles p where p.id = auth.uid())
   );
 
+drop policy if exists "Officers can read and manage all season rows" on public.season_members;
 create policy "Officers can read and manage all season rows"
   on public.season_members for all
   using (
@@ -130,7 +145,7 @@ create policy "Officers can read and manage all season rows"
 -- Mock Results (Playbook 9.1 "Mock Results" tab)
 -- ---------------------------------------------------------------------
 
-create table public.mock_results (
+create table if not exists public.mock_results (
   id uuid primary key default gen_random_uuid(),
   performance_date date not null,
   member_id text not null,
@@ -151,12 +166,14 @@ create table public.mock_results (
 
 alter table public.mock_results enable row level security;
 
+drop policy if exists "Members can read their own mock results" on public.mock_results;
 create policy "Members can read their own mock results"
   on public.mock_results for select
   using (
     member_id = (select p.member_id from public.profiles p where p.id = auth.uid())
   );
 
+drop policy if exists "Officers can read and manage all mock results" on public.mock_results;
 create policy "Officers can read and manage all mock results"
   on public.mock_results for all
   using (
@@ -166,11 +183,11 @@ create policy "Officers can read and manage all mock results"
 -- ---------------------------------------------------------------------
 -- Conference Results (Playbook 9.1 "Conference Results" tab)
 -- NOTE: includes a `judge` column the original workbook was missing —
--- the competitive-intelligence-analyst agent is adding the same column
+-- the competitive-intelligence-analyst agent added the same column
 -- to the .xlsx in parallel with this migration so both stay in sync.
 -- ---------------------------------------------------------------------
 
-create table public.conference_results (
+create table if not exists public.conference_results (
   id uuid primary key default gen_random_uuid(),
   season text not null,
   level text not null,                -- District | State | ICDC
@@ -193,10 +210,12 @@ alter table public.conference_results enable row level security;
 
 -- Public results are a deliberate recruiting feature (Phase 2) — readable
 -- by anyone, not just signed-in users. Writes stay officer-only.
+drop policy if exists "Anyone can read conference results" on public.conference_results;
 create policy "Anyone can read conference results"
   on public.conference_results for select
   using (true);
 
+drop policy if exists "Officers can manage conference results" on public.conference_results;
 create policy "Officers can manage conference results"
   on public.conference_results for all
   using (
