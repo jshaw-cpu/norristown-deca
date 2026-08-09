@@ -9,7 +9,7 @@ This repo is moving from a single static `index.html` to a full Next.js app with
 
 Phases (see `2026-08-05-briefing-and-next-steps.md`-style planning docs in Cowork OS for the full plan):
 0. New app built alongside the live site — done, no disruption.
-1. Next.js + Vercel + Supabase foundation, auth, workbook data migrated in — in progress.
+1. Next.js + Vercel + Supabase foundation, auth, workbook data migrated in — done. Live at `https://norristown-deca-nahs-deca.vercel.app`.
 2. Public tier: revamped recruitment site + live results/trends showcase.
 3. Member/officer/parent tier feature work.
 4. Retire GitHub Pages once 2–3 are stable.
@@ -18,7 +18,7 @@ Phases (see `2026-08-05-briefing-and-next-steps.md`-style planning docs in Cowor
 
 - **Next.js 16** (App Router, TypeScript, Tailwind v4) — see `web/AGENTS.md` and `web/node_modules/next/dist/docs/` before assuming any convention from training data; this version has real breaking changes (e.g. `middleware.ts` → `proxy.ts`).
 - **Supabase** — Postgres database + auth. Schema lives in `web/supabase/migrations/`, run manually in the Supabase SQL editor (see `web/SETUP.md`).
-- **Vercel** — hosting target once Phase 2 is stable. Deploys from this GitHub repo with Root Directory set to `web`.
+- **Vercel** — project `norristown-deca` (team `nahs-deca`). Deploy via the CLI from inside `web/` (`npx vercel --prod`) — the dashboard's GitHub-import flow reliably produced a broken deployment for this repo (build succeeded, every route 404'd), so don't use it. See `web/SETUP.md` for the exact commands.
 - Four access tiers: public (no login), `member`, `officer`, `parent` — see `web/src/lib/auth/dal.ts` for the real (DB-backed) checks and `web/proxy.ts` for the fast optimistic check. Officers get member-tier access too; nobody else crosses tiers.
 
 ## Data model

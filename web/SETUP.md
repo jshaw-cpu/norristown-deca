@@ -35,10 +35,19 @@ Visit `http://localhost:3000`, sign in at `/login`, and you should land on `/off
 
 ## 5. Deploy to Vercel (when ready to go live)
 
-1. Push this branch (`website-rebuild-nextjs`) to GitHub.
-2. Go to [vercel.com](https://vercel.com), sign up with your GitHub account, and import this repo.
-3. Set the **Root Directory** to `web` in the import settings (the repo root is the old static site, not this app).
-4. Add the same two environment variables from `.env.local` in Vercel's project settings.
-5. Deploy. Vercel gives you a live URL immediately; a custom domain can be added later in Vercel's domain settings.
+**The live site:** `https://norristown-deca-nahs-deca.vercel.app` (project: `norristown-deca`, team: `nahs-deca`). The plain `norristown-deca.vercel.app` alias should also work once Vercel's domain cache catches up after a rename — if it 404s with `DEPLOYMENT_NOT_FOUND`, that's just propagation lag, not a real problem.
 
-Nothing in steps 1–5 costs money at chapter scale (Supabase and Vercel free tiers are both generous enough for this).
+**Deploy via the CLI, not the dashboard's GitHub import.** We tried the normal "Import Git Repository" flow first and it repeatedly produced a broken project (valid-looking build logs, but every route 404'd at the edge with `Code: NOT_FOUND`, even after fixing Root Directory, branch settings, and deployment protection). Recreating the project from scratch via the CLI fixed it immediately — the dashboard import path for this repo is not trustworthy, don't retry it without a good reason.
+
+To deploy a new build:
+
+```bash
+cd web
+npx vercel login      # first time only — approves your browser session
+npx vercel link       # first time only — links this folder to the norristown-deca project
+npx vercel --prod
+```
+
+Run this from inside `web/`, not the repo root. Environment variables (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`) are already set on the `norristown-deca` project in Vercel — add more with `npx vercel env add <NAME> production`.
+
+Nothing here costs money at chapter scale (Supabase and Vercel free tiers are both generous enough for this).
