@@ -19,12 +19,6 @@ export default async function MemberDashboard() {
           {session.role === "officer" && " (member-tier access granted)"}
         </p>
 
-        <div className="bg-paper border border-silver-light p-8 mb-6">
-          <p className="font-body text-ink">
-            The training calendar lands here next in Phase 3.
-          </p>
-        </div>
-
         <div className="flex flex-wrap gap-6 mb-10">
           <Link
             href="/member/practice-bank"
@@ -37,6 +31,12 @@ export default async function MemberDashboard() {
             className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition"
           >
             My Progress &rarr;
+          </Link>
+          <Link
+            href="/member/calendar"
+            className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition"
+          >
+            Training Calendar &rarr;
           </Link>
         </div>
 

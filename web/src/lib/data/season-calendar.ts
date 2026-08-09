@@ -90,6 +90,82 @@ export const WEEKLY_CADENCE: CadenceItem[] = [
   { item: "DECA-DO List review", cadence: "Weekly, at officer council", owner: "Chloe Wang" },
 ];
 
+export type TrainingMonth = {
+  monthKeys: string[]; // "YYYY-MM"
+  label: string;
+  focus: string;
+};
+
+// Section 7.2: Master Calendar — the "Competition and training" column
+// only (Membership/Campaigns and Leadership/Culture columns aren't
+// member-relevant for a training calendar).
+export const TRAINING_MONTHS: TrainingMonth[] = [
+  {
+    monthKeys: ["2026-07", "2026-08"],
+    label: "July–August: Foundation",
+    focus: "Advisor builds the season plan and confirms the event list with PA DECA. Practice schedule published in August.",
+  },
+  {
+    monthKeys: ["2026-09"],
+    label: "September: Declare & Baseline",
+    focus: "Sept 15: every member has a declared event. Sept 15–30: diagnostic cluster exam, scored and recorded.",
+  },
+  {
+    monthKeys: ["2026-10"],
+    label: "October: Training Camp Begins",
+    focus: "Cluster content blocks. Role-play mechanics. Partner matching locked. First full mock for every competitor. Judge's Lens Lab 1, mid-October.",
+  },
+  {
+    monthKeys: ["2026-11"],
+    label: "November: Simulation",
+    focus: "Weekly mock cycles. Districts simulation under full timing and dress. Written events: research Oct 27, first draft Nov 6, second draft Nov 20.",
+  },
+  {
+    monthKeys: ["2026-12"],
+    label: "December: District Conference",
+    focus: "Dec 1: written reports locked. Dec 8: two rehearsals in front of fresh judges. Taper Nov 26–Dec 10. Dec 11: District Conference. Debriefs within 48 hours.",
+  },
+  {
+    monthKeys: ["2027-01"],
+    label: "January: State Push",
+    focus: "Score analysis. State cohort named. Written events rebuilt against actual score sheets. Higher difficulty scenarios. Exam retest. Judge's Lens Lab 2, early January.",
+  },
+  {
+    monthKeys: ["2027-02"],
+    label: "February: State Conference",
+    focus: "Taper Feb 7–16. Hershey logistics, materials check, mental performance work. Feb 17–19: State Conference. Debriefs within 48 hours. Feb 20: ICDC cohort forms begin.",
+  },
+  {
+    monthKeys: ["2027-03"],
+    label: "March: ICDC Peak",
+    focus: "Highest difficulty drills, outside judges only, full dress rehearsals. Judge's Lens Lab 3, mid-March.",
+  },
+  {
+    monthKeys: ["2027-04"],
+    label: "April: ICDC",
+    focus: "Apr 11–15: taper and travel prep. Apr 16–21: ICDC, Anaheim. Debriefs within 48 hours of return.",
+  },
+  {
+    monthKeys: ["2027-05"],
+    label: "May: Legacy Capture",
+    focus: "Every ICDC competitor teaches their event to an underclassman. Event prep guides updated for next year.",
+  },
+  {
+    monthKeys: ["2027-06"],
+    label: "June: Season Close",
+    focus: "Competition results log finalized and filed.",
+  },
+];
+
+function monthKey(date: Date): string {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+}
+
+export function getCurrentTrainingMonth(now: Date): TrainingMonth | null {
+  const key = monthKey(now);
+  return TRAINING_MONTHS.find((m) => m.monthKeys.includes(key)) ?? null;
+}
+
 export function getNextDeadline(now: Date): (HardDeadline & { daysUntil: number }) | null {
   const upcoming = HARD_DEADLINES
     .map((d) => ({ ...d, daysUntil: daysBetween(now, new Date(d.date)) }))
@@ -107,7 +183,7 @@ export function getActiveTaperWindow(now: Date): TaperWindow | null {
   );
 }
 
-function daysBetween(from: Date, to: Date): number {
+export function daysBetween(from: Date, to: Date): number {
   const msPerDay = 1000 * 60 * 60 * 24;
   const fromMidnight = new Date(from.getFullYear(), from.getMonth(), from.getDate());
   return Math.round((to.getTime() - fromMidnight.getTime()) / msPerDay);
