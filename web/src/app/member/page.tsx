@@ -21,17 +21,24 @@ export default async function MemberDashboard() {
 
         <div className="bg-paper border border-silver-light p-8 mb-6">
           <p className="font-body text-ink">
-            Personal progress from Conference Results and the training
-            calendar land here next in Phase 3.
+            The training calendar lands here next in Phase 3.
           </p>
         </div>
 
-        <Link
-          href="/member/practice-bank"
-          className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition mb-10"
-        >
-          Practice Bank &rarr;
-        </Link>
+        <div className="flex flex-wrap gap-6 mb-10">
+          <Link
+            href="/member/practice-bank"
+            className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition"
+          >
+            Practice Bank &rarr;
+          </Link>
+          <Link
+            href="/member/progress"
+            className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition"
+          >
+            My Progress &rarr;
+          </Link>
+        </div>
 
         <form action={logout} className="mt-8">
           <button className="font-head font-bold text-sm text-blue hover:text-blue-deep transition">
