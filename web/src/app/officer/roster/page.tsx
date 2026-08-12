@@ -4,6 +4,7 @@ import { listSeasonRoster } from "@/lib/data/roster";
 import { listEventOptions } from "@/lib/data/practiceBank";
 import { deleteRosterMember } from "@/app/actions/roster";
 import { CURRENT_SEASON } from "@/lib/data/season-calendar";
+import { DeleteButton } from "@/components/DeleteButton";
 import { RosterForm } from "./RosterForm";
 
 export default async function RosterPage() {
@@ -66,14 +67,10 @@ export default async function RosterPage() {
                         .join(" · ") || "No details set"}
                     </p>
                   </div>
-                  <form action={deleteRosterMember.bind(null, member.id)}>
-                    <button
-                      type="submit"
-                      className="font-head font-bold text-xs uppercase tracking-wide text-silver hover:text-red-600 transition"
-                    >
-                      Delete
-                    </button>
-                  </form>
+                  <DeleteButton
+                    action={deleteRosterMember.bind(null, member.id)}
+                    confirmMessage={`Remove ${member.memberName} from the roster?`}
+                  />
                 </li>
               ))}
             </ul>

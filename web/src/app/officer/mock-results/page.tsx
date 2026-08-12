@@ -4,6 +4,7 @@ import { listMockResults } from "@/lib/data/mockResults";
 import { listRosterOptions } from "@/lib/data/permissionSlips";
 import { listEventOptions } from "@/lib/data/practiceBank";
 import { deleteMockResult } from "@/app/actions/mockResults";
+import { DeleteButton } from "@/components/DeleteButton";
 import { AddMockResultForm } from "./AddMockResultForm";
 
 const DATE_FORMAT: Intl.DateTimeFormatOptions = {
@@ -75,14 +76,10 @@ export default async function MockResultsPage() {
                       </p>
                     )}
                   </div>
-                  <form action={deleteMockResult.bind(null, entry.id)}>
-                    <button
-                      type="submit"
-                      className="font-head font-bold text-xs uppercase tracking-wide text-silver hover:text-red-600 transition"
-                    >
-                      Delete
-                    </button>
-                  </form>
+                  <DeleteButton
+                    action={deleteMockResult.bind(null, entry.id)}
+                    confirmMessage={`Delete this mock result for ${entry.memberName}?`}
+                  />
                 </li>
               ))}
             </ul>

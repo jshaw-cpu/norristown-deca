@@ -3,6 +3,7 @@ import { requireRole } from "@/lib/auth/dal";
 import { listPracticeBankItems, listEventOptions } from "@/lib/data/practiceBank";
 import { deletePracticeBankItem } from "@/app/actions/practiceBank";
 import { PracticeBankGroups } from "@/components/practice-bank/PracticeBankGroups";
+import { DeleteButton } from "@/components/DeleteButton";
 import { AddItemForm } from "./AddItemForm";
 
 export default async function PracticeBankPage() {
@@ -38,14 +39,10 @@ export default async function PracticeBankPage() {
         <PracticeBankGroups
           groups={groups}
           renderItemActions={(itemId) => (
-            <form action={deletePracticeBankItem.bind(null, itemId)}>
-              <button
-                type="submit"
-                className="font-head font-bold text-xs uppercase tracking-wide text-silver hover:text-red-600 transition"
-              >
-                Delete
-              </button>
-            </form>
+            <DeleteButton
+              action={deletePracticeBankItem.bind(null, itemId)}
+              confirmMessage="Remove this catalog entry?"
+            />
           )}
         />
       </div>

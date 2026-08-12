@@ -4,6 +4,7 @@ import { listConferenceResults } from "@/lib/data/conferenceResults";
 import { listRosterOptions } from "@/lib/data/permissionSlips";
 import { listEventOptions } from "@/lib/data/practiceBank";
 import { deleteConferenceResult } from "@/app/actions/conferenceResults";
+import { DeleteButton } from "@/components/DeleteButton";
 import { AddConferenceResultForm } from "./AddConferenceResultForm";
 
 export default async function ConferenceResultsPage() {
@@ -65,14 +66,10 @@ export default async function ConferenceResultsPage() {
                     <span className="font-head font-black text-sm uppercase text-blue">
                       {entry.placement ?? (entry.total != null ? `${entry.total} pts` : "—")}
                     </span>
-                    <form action={deleteConferenceResult.bind(null, entry.id)}>
-                      <button
-                        type="submit"
-                        className="font-head font-bold text-xs uppercase tracking-wide text-silver hover:text-red-600 transition"
-                      >
-                        Delete
-                      </button>
-                    </form>
+                    <DeleteButton
+                      action={deleteConferenceResult.bind(null, entry.id)}
+                      confirmMessage={`Delete this conference result for ${entry.memberName}?`}
+                    />
                   </div>
                 </li>
               ))}

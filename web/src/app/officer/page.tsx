@@ -23,6 +23,34 @@ function startOfWeek(date: Date): Date {
   return d;
 }
 
+const TOOLS = [
+  {
+    href: "/officer/roster",
+    title: "Season Roster",
+    description: "Add, update, or remove members from this season's roster.",
+  },
+  {
+    href: "/officer/mock-results",
+    title: "Mock Results",
+    description: "Log practice performance scores after each rep.",
+  },
+  {
+    href: "/officer/conference-results",
+    title: "Conference Results",
+    description: "Log District/State/ICDC results as they come in.",
+  },
+  {
+    href: "/officer/practice-bank",
+    title: "Practice Bank",
+    description: "Manage the role-play/test content catalog.",
+  },
+  {
+    href: "/officer/permission-slips",
+    title: "Permission Slips",
+    description: "Track slip status per member per conference.",
+  },
+];
+
 export default async function OfficerDashboard() {
   const session = await requireRole("officer");
   const pulse = await getChapterPulse();
@@ -125,46 +153,23 @@ export default async function OfficerDashboard() {
           </ul>
         </section>
 
-        <div className="flex flex-wrap gap-6 mb-10">
-          <Link
-            href="/officer/roster"
-            className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition"
-          >
-            Season Roster &rarr;
-          </Link>
-          <Link
-            href="/officer/mock-results"
-            className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition"
-          >
-            Mock Results &rarr;
-          </Link>
-          <Link
-            href="/officer/conference-results"
-            className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition"
-          >
-            Conference Results &rarr;
-          </Link>
-          <Link
-            href="/officer/practice-bank"
-            className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition"
-          >
-            Practice Bank &rarr;
-          </Link>
-          <Link
-            href="/officer/permission-slips"
-            className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition"
-          >
-            Permission Slips &rarr;
-          </Link>
-          {session.isAdvisor && (
-            <Link
-              href="/officer/accountability"
-              className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition"
-            >
-              Review Queue &rarr;
-            </Link>
-          )}
-        </div>
+        <section className="mb-10">
+          <p className="font-head font-bold text-xs uppercase tracking-[0.2em] text-silver mb-4">
+            Officer Tools
+          </p>
+          <div className="grid md:grid-cols-2 gap-4">
+            {TOOLS.map((tool) => (
+              <ToolCard key={tool.href} {...tool} />
+            ))}
+            {session.isAdvisor && (
+              <ToolCard
+                href="/officer/accountability"
+                title="Review Queue"
+                description="Advisor only — the discipline ladder (verbal/written/suspension)."
+              />
+            )}
+          </div>
+        </section>
 
         <form action={logout}>
           <button className="font-head font-bold text-sm text-blue hover:text-blue-deep transition">
@@ -173,6 +178,28 @@ export default async function OfficerDashboard() {
         </form>
       </div>
     </main>
+  );
+}
+
+function ToolCard({
+  href,
+  title,
+  description,
+}: {
+  href: string;
+  title: string;
+  description: string;
+}) {
+  return (
+    <Link
+      href={href}
+      className="block bg-paper border border-silver-light p-6 hover:border-blue transition"
+    >
+      <p className="font-head font-bold text-blue-night mb-1">
+        {title} <span className="text-blue">&rarr;</span>
+      </p>
+      <p className="text-silver text-sm">{description}</p>
+    </Link>
   );
 }
 
