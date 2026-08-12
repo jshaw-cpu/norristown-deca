@@ -28,7 +28,7 @@ export function LeadersSection() {
                   State President
                 </p>
                 <h3 className="font-head font-black text-2xl text-blue-night">
-                  Jack Falk
+                  Jackson Falk
                 </h3>
                 <p className="text-silver text-sm mt-1">2025&ndash;2026</p>
               </div>
@@ -52,11 +52,12 @@ export function LeadersSection() {
               />
               <div>
                 <p className="font-head font-bold text-xs uppercase tracking-[0.2em] text-blue mb-2">
-                  Judge Since 2012
+                  State President
                 </p>
                 <h3 className="font-head font-black text-2xl text-blue-night">
                   Dons Nguyen
                 </h3>
+                <p className="text-silver text-sm mt-1">2010&ndash;2011</p>
               </div>
             </div>
             <p className="text-ink text-sm leading-relaxed">
