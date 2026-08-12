@@ -1,8 +1,8 @@
 const ALUMNI_STATS = [
   { value: "55+", label: "Years of Eagles" },
-  { value: "180+", label: "Members at Peak" },
+  { value: "82", label: "Average Members Per Year" },
   { value: "#1", label: "Largest in PA" },
-  { value: "54+", label: "State Qualifiers in One Year" },
+  { value: "54+", label: "State Qualifiers (2025)" },
 ];
 
 export function AlumniSection() {
