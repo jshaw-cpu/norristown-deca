@@ -14,11 +14,16 @@ export type SlipRecord = {
 };
 
 export type OfficerSlipEntry = {
-  id: string;
   memberId: string;
   memberName: string;
   conference: Conference;
   status: SlipStatus;
+};
+
+export type ConferenceSlipSummary = {
+  submittedCount: number;
+  rosterSize: number;
+  entries: OfficerSlipEntry[];
 };
 
 export type RosterOption = {
@@ -54,29 +59,45 @@ export async function listSlipsForMember(memberId: string | null): Promise<SlipR
   });
 }
 
-// Officer-facing: every explicit record that's been entered, grouped by
-// conference for display.
-export async function listAllSlips(): Promise<Record<Conference, OfficerSlipEntry[]>> {
+// Officer-facing: explicit records only (not the full roster — a wall of
+// "Not Submitted" rows for everyone who hasn't turned anything in yet is
+// more noise than signal, especially early season). Each conference also
+// gets a submitted/roster-size count so officers still get an at-a-glance
+// sense of how much is outstanding without listing every gap individually.
+export async function listAllSlips(): Promise<Record<Conference, ConferenceSlipSummary>> {
   const supabase = await createClient();
-  const { data } = await supabase
-    .from("permission_slips")
-    .select("id, member_id, member_name, conference, status")
-    .order("member_name", { ascending: true });
 
-  const grouped: Record<Conference, OfficerSlipEntry[]> = {
-    District: [],
-    State: [],
-    ICDC: [],
+  const [rosterCountResult, slipsResult] = await Promise.all([
+    supabase
+      .from("season_members")
+      .select("member_id", { count: "exact", head: true })
+      .eq("season", CURRENT_SEASON),
+    supabase
+      .from("permission_slips")
+      .select("member_id, member_name, conference, status")
+      .order("member_name", { ascending: true }),
+  ]);
+
+  const rosterSize = rosterCountResult.count ?? 0;
+
+  const grouped: Record<Conference, ConferenceSlipSummary> = {
+    District: { submittedCount: 0, rosterSize, entries: [] },
+    State: { submittedCount: 0, rosterSize, entries: [] },
+    ICDC: { submittedCount: 0, rosterSize, entries: [] },
   };
 
-  for (const row of data ?? []) {
-    grouped[row.conference as Conference].push({
-      id: row.id,
+  for (const row of slipsResult.data ?? []) {
+    const conference = row.conference as Conference;
+    const status = row.status as SlipStatus;
+    grouped[conference].entries.push({
       memberId: row.member_id,
       memberName: row.member_name,
-      conference: row.conference as Conference,
-      status: row.status as SlipStatus,
+      conference,
+      status,
     });
+    if (status === "submitted" || status === "approved") {
+      grouped[conference].submittedCount += 1;
+    }
   }
 
   return grouped;

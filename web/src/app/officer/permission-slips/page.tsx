@@ -10,6 +10,12 @@ const STATUS_LABEL: Record<SlipStatus, string> = {
   approved: "Approved",
 };
 
+const STATUS_COLOR: Record<SlipStatus, string> = {
+  not_submitted: "text-silver",
+  submitted: "text-blue",
+  approved: "text-blue-night",
+};
+
 export default async function PermissionSlipsPage() {
   await requireRole("officer");
   const [grouped, roster] = await Promise.all([listAllSlips(), listRosterOptions()]);
@@ -36,34 +42,44 @@ export default async function PermissionSlipsPage() {
 
         <UpdateStatusForm roster={roster} />
 
-        {CONFERENCES.map((conference) => (
-          <section key={conference} className="mb-8">
-            <p className="font-head font-bold text-xs uppercase tracking-[0.2em] text-silver mb-4">
-              {conference}
-            </p>
-            {grouped[conference].length === 0 ? (
-              <div className="bg-paper border border-silver-light p-6">
-                <p className="text-ink text-sm">No statuses recorded yet.</p>
+        {CONFERENCES.map((conference) => {
+          const summary = grouped[conference];
+          return (
+            <section key={conference} className="mb-8">
+              <div className="flex items-center justify-between mb-4">
+                <p className="font-head font-bold text-xs uppercase tracking-[0.2em] text-silver">
+                  {conference}
+                </p>
+                <p className="font-head font-bold text-xs uppercase tracking-wide text-blue">
+                  {summary.submittedCount} of {summary.rosterSize} submitted
+                </p>
               </div>
-            ) : (
-              <div className="bg-paper border border-silver-light">
-                <ul className="divide-y divide-silver-light">
-                  {grouped[conference].map((entry) => (
-                    <li
-                      key={entry.id}
-                      className="flex flex-wrap items-center justify-between gap-2 p-6"
-                    >
-                      <p className="font-head font-bold text-blue-night">{entry.memberName}</p>
-                      <span className="font-head font-black text-sm uppercase text-blue">
-                        {STATUS_LABEL[entry.status]}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </section>
-        ))}
+              {summary.entries.length === 0 ? (
+                <div className="bg-paper border border-silver-light p-6">
+                  <p className="text-ink text-sm">No slips recorded yet for this conference.</p>
+                </div>
+              ) : (
+                <div className="bg-paper border border-silver-light">
+                  <ul className="divide-y divide-silver-light">
+                    {summary.entries.map((entry) => (
+                      <li
+                        key={`${entry.memberId}-${entry.conference}`}
+                        className="flex flex-wrap items-center justify-between gap-2 p-6"
+                      >
+                        <p className="font-head font-bold text-blue-night">{entry.memberName}</p>
+                        <span
+                          className={`font-head font-black text-sm uppercase ${STATUS_COLOR[entry.status]}`}
+                        >
+                          {STATUS_LABEL[entry.status]}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </section>
+          );
+        })}
       </div>
     </main>
   );
