@@ -8,6 +8,7 @@ import { ResultsShowcase } from "@/components/home/ResultsShowcase";
 import { ChampionsSection } from "@/components/home/ChampionsSection";
 import { OfficersSection } from "@/components/home/OfficersSection";
 import { AdvisorSection } from "@/components/home/AdvisorSection";
+import { LeadersSection } from "@/components/home/LeadersSection";
 import { GallerySection } from "@/components/home/GallerySection";
 import { ToolkitSection } from "@/components/home/ToolkitSection";
 import { AlumniSection } from "@/components/home/AlumniSection";
@@ -27,6 +28,7 @@ export default function Home() {
       <ChampionsSection />
       <OfficersSection />
       <AdvisorSection />
+      <LeadersSection />
       <GallerySection />
       <ToolkitSection />
       <AlumniSection />
