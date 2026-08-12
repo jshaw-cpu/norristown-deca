@@ -139,6 +139,12 @@ export default async function OfficerDashboard() {
             Mock Results &rarr;
           </Link>
           <Link
+            href="/officer/conference-results"
+            className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition"
+          >
+            Conference Results &rarr;
+          </Link>
+          <Link
             href="/officer/practice-bank"
             className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition"
           >
