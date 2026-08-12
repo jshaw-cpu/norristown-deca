@@ -19,7 +19,7 @@ const GROUPS = [
   {
     label: "Operations Directors",
     officers: [
-      { initials: "MB", role: "School Store & Exam Director", name: "Madiiha Bhuiyan" },
+      { initials: "MB", role: "Exam Director", name: "Madiiha Bhuiyan" },
       { initials: "JF", role: "Role-Play Presentation Director", name: "Joshua Falk" },
       { initials: "EO", role: "Creative Director", name: "Eduardo Olmos Chavez" },
     ],
