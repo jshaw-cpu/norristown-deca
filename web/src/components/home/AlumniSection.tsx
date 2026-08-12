@@ -1,7 +1,7 @@
 const ALUMNI_STATS = [
   { value: "55+", label: "Years of Eagles" },
   { value: "95", label: "Average Members Per Year" },
-  { value: "#1", label: "Largest in PA" },
+  { value: "#1", label: "Largest in PA (2005-06)" },
   { value: "54+", label: "State Qualifiers (2025)" },
 ];
 
