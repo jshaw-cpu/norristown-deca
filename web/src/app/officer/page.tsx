@@ -133,6 +133,12 @@ export default async function OfficerDashboard() {
             Season Roster &rarr;
           </Link>
           <Link
+            href="/officer/mock-results"
+            className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition"
+          >
+            Mock Results &rarr;
+          </Link>
+          <Link
             href="/officer/practice-bank"
             className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition"
           >
