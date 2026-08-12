@@ -51,8 +51,26 @@ export default async function ParentDashboard() {
           Welcome, {session.fullName ?? session.email}
         </h1>
         <p className="text-silver font-body mb-10">
-          Volunteer sign-ups land here next in Phase 3.
+          Role: {session.role}
         </p>
+
+        <section className="bg-paper border border-silver-light p-8 mb-6">
+          <p className="font-head font-bold text-xs uppercase tracking-[0.2em] text-silver mb-4">
+            Volunteer Sign-Ups
+          </p>
+          <p className="text-ink text-sm mb-4">
+            Chaperones, event-day help, and fundraiser shifts — sign up
+            through the form below.
+          </p>
+          <a
+            href="https://forms.gle/REPLACE-WITH-VOLUNTEER-SIGNUP-FORM"
+            target="_blank"
+            rel="noopener"
+            className="btn-skew inline-block bg-blue text-white font-head font-extrabold uppercase text-sm px-8 py-3 hover:bg-blue-deep transition"
+          >
+            Sign Up to Volunteer &rarr;
+          </a>
+        </section>
 
         <section className="bg-paper border border-silver-light p-8 mb-6">
           <p className="font-head font-bold text-xs uppercase tracking-[0.2em] text-silver mb-4">
