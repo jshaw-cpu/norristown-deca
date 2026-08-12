@@ -127,6 +127,12 @@ export default async function OfficerDashboard() {
 
         <div className="flex flex-wrap gap-6 mb-10">
           <Link
+            href="/officer/roster"
+            className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition"
+          >
+            Season Roster &rarr;
+          </Link>
+          <Link
             href="/officer/practice-bank"
             className="inline-block font-head font-bold text-sm text-blue hover:text-blue-deep transition"
           >
