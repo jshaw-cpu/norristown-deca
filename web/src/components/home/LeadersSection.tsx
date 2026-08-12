@@ -15,12 +15,23 @@ export function LeadersSection() {
 
         <div className="grid md:grid-cols-2 gap-7">
           <div className="bg-paper border border-silver-light p-8">
-            <p className="font-head font-bold text-xs uppercase tracking-[0.2em] text-blue mb-3">
-              Pennsylvania DECA State President
-            </p>
-            <h3 className="font-head font-black text-2xl text-blue-night mb-1">
-              Jack Falk
-            </h3>
+            <div className="flex gap-5 items-start mb-4">
+              <Image
+                src="/alumni/jack-falk.jpg"
+                alt="Jack Falk"
+                width={200}
+                height={200}
+                className="w-20 h-20 object-cover object-top shrink-0 border border-silver-light"
+              />
+              <div>
+                <p className="font-head font-bold text-xs uppercase tracking-[0.2em] text-blue mb-2">
+                  PA DECA State President
+                </p>
+                <h3 className="font-head font-black text-2xl text-blue-night">
+                  Jack Falk
+                </h3>
+              </div>
+            </div>
             <p className="text-silver text-sm mb-4">
               2025&ndash;2026 &middot; previously VP of Member Development on
               the 2024&ndash;2025 PA DECA State Officer Team
