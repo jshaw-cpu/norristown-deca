@@ -6,15 +6,19 @@ import { addMockResult } from "@/app/actions/mockResults";
 type RosterOption = { memberId: string; memberName: string };
 type EventOption = { eventCode: string; eventName: string };
 
+// Max points per category, confirmed 2026-08-11 — totals to 100. Also
+// enforced at the database level (0007_mock_results_score_ranges.sql);
+// the `max` attributes here just give an officer the ceiling up front
+// instead of finding out after a rejected submit.
 const RUBRIC_FIELDS = [
-  { name: "opening", label: "Opening" },
-  { name: "diagnosis", label: "Diagnosis" },
-  { name: "perfIndicators", label: "Perf. Indicators" },
-  { name: "specificity", label: "Specificity" },
-  { name: "quantification", label: "Quantification" },
-  { name: "followUp", label: "Follow-Up" },
-  { name: "presence", label: "Presence" },
-  { name: "close", label: "Close" },
+  { name: "opening", label: "Opening", max: 10 },
+  { name: "diagnosis", label: "Diagnosis", max: 10 },
+  { name: "perfIndicators", label: "Perf. Indicators", max: 15 },
+  { name: "specificity", label: "Specificity", max: 15 },
+  { name: "quantification", label: "Quantification", max: 15 },
+  { name: "followUp", label: "Follow-Up", max: 15 },
+  { name: "presence", label: "Presence", max: 10 },
+  { name: "close", label: "Close", max: 10 },
 ];
 
 export function AddMockResultForm({
@@ -121,12 +125,13 @@ export function AddMockResultForm({
           {RUBRIC_FIELDS.map((field) => (
             <div key={field.name}>
               <label className="block text-[0.65rem] font-head font-semibold uppercase tracking-wide text-silver mb-1">
-                {field.label}
+                {field.label} <span className="text-silver-light">/ {field.max}</span>
               </label>
               <input
                 name={field.name}
                 type="number"
                 min="0"
+                max={field.max}
                 className="w-full border border-silver-light px-2 py-1.5 font-body text-sm focus:outline-none focus:border-blue"
               />
             </div>

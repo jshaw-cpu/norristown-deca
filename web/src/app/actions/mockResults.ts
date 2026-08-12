@@ -6,11 +6,35 @@ import { createClient } from "@/lib/supabase/server";
 
 export type MockResultFormState = { error?: string } | undefined;
 
+// Max points per category, confirmed 2026-08-11 — totals to 100. Also
+// enforced at the database level (0007_mock_results_score_ranges.sql);
+// checking here first gives a clear message instead of a raw DB error.
+const RUBRIC_MAX: Record<string, number> = {
+  opening: 10,
+  diagnosis: 10,
+  perfIndicators: 15,
+  specificity: 15,
+  quantification: 15,
+  followUp: 15,
+  presence: 10,
+  close: 10,
+};
+
 function optionalInt(value: FormDataEntryValue | null): number | null {
   const str = String(value ?? "").trim();
   if (!str) return null;
   const n = Number(str);
   return Number.isFinite(n) ? n : null;
+}
+
+function validateRubricScores(formData: FormData): string | null {
+  for (const [field, max] of Object.entries(RUBRIC_MAX)) {
+    const value = optionalInt(formData.get(field));
+    if (value != null && (value < 0 || value > max)) {
+      return `Score out of range: ${field} must be between 0 and ${max}.`;
+    }
+  }
+  return null;
 }
 
 // Each mock is a distinct performance, so this always inserts a new row
@@ -37,6 +61,11 @@ export async function addMockResult(
   }
   if (!performanceDate) {
     return { error: "Performance date is required." };
+  }
+
+  const rangeError = validateRubricScores(formData);
+  if (rangeError) {
+    return { error: rangeError };
   }
 
   const supabase = await createClient();
