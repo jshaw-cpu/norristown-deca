@@ -1,8 +1,17 @@
+import Image from "next/image";
+
 export function AdvisorSection() {
   return (
     <section id="advisor" className="bg-paper px-6 py-24">
       <div className="max-w-4xl mx-auto grid md:grid-cols-[0.9fr_1.1fr] gap-12 items-center">
         <div className="bg-blue-night text-white p-8">
+          <Image
+            src="/gallery/mr-shaw.png"
+            alt="Mr. John Shaw"
+            width={400}
+            height={400}
+            className="w-full max-w-[220px] h-auto mx-auto mb-6 border border-white/20"
+          />
           <h3 className="font-head font-black text-xl uppercase mb-1">
             Mr. John Shaw
           </h3>
