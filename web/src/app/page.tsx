@@ -20,8 +20,8 @@ export default function Home() {
     <main className="min-h-screen flex flex-col">
       <SiteNav />
       <Hero />
-      <Pillars />
       <WhySection />
+      <Pillars />
       <CompeteLadder />
       <ResultsShowcase />
       <ChampionsSection />

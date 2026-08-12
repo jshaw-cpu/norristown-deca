@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 
 const LINKS = [
-  { href: "#pillars", label: "Clusters" },
   { href: "#why", label: "Why DECA" },
+  { href: "#pillars", label: "Clusters" },
   { href: "#compete", label: "Compete" },
   { href: "#champions", label: "Champions" },
   { href: "#officers", label: "Leadership" },
