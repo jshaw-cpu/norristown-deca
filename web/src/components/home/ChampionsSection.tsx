@@ -1,29 +1,36 @@
 import Image from "next/image";
 
-const FEATURED = {
-  placement: "2nd",
-  event: "Virtual Business Challenge: Retailing",
-  names: "Jack Casey & Andrew Wolenter",
-  year: "ICDC 2006",
-  photo: "/champions/jack-andrew-2006.png",
-};
+const PHOTO_CHAMPIONS = [
+  {
+    placement: "2nd",
+    event: "Food Marketing — Triple Medallion",
+    names: "Dave Wrigley",
+    year: "ICDC 2004",
+    photo: "/champions/dave-wrigley-2004.jpg",
+  },
+  {
+    placement: "2nd",
+    event: "Virtual Business Challenge: Retailing",
+    names: "Jack Casey & Andrew Wolenter",
+    year: "ICDC 2006",
+    photo: "/champions/jack-andrew-2006.png",
+  },
+];
 
-const CHAMPIONS = [
+const OTHER_CHAMPIONS = [
   {
     num: "01",
-    placement: "2nd",
-    event: "Food Marketing",
-    detail: "Dave Wrigley — Triple Medallion",
-    year: "ICDC 2004",
-    photo: "/champions/dave-wrigley-2004.jpg" as string | null,
+    placement: "4th",
+    event: "DECA Quiz Bowl",
+    detail: "Jason VanBuskirk",
+    year: "ICDC 2002",
   },
   {
     num: "02",
-    placement: "2nd",
-    event: "Virtual Business Challenge — Retailing",
-    detail: "Jack Casey & Andrew Wolenter",
-    year: "ICDC 2006",
-    photo: null as string | null,
+    placement: "Top 10",
+    event: "E-Commerce Business Plan",
+    detail: "Duong / Wrigley / Piazza — 5th Overall",
+    year: "ICDC 2005",
   },
   {
     num: "03",
@@ -31,47 +38,29 @@ const CHAMPIONS = [
     event: "Business Law & Ethics",
     detail: "Chrissy Kratz & Lynne Kolodinsky — 5th Overall & Test Medallion",
     year: "ICDC 2006",
-    photo: null as string | null,
   },
   {
     num: "04",
-    placement: "Top 10",
-    event: "E-Commerce Business Plan",
-    detail: "Duong / Wrigley / Piazza — 5th Overall",
-    year: "ICDC 2005",
-    photo: null as string | null,
-  },
-  {
-    num: "05",
     placement: "5th",
     event: "Hotel & Lodging Management",
     detail: "Amanda Assenmacher — Exam Medallion",
     year: "ICDC 2012",
-    photo: null as string | null,
-  },
-  {
-    num: "06",
-    placement: "4th",
-    event: "DECA Quiz Bowl",
-    detail: "Jason VanBuskirk",
-    year: "ICDC 2002",
-    photo: null as string | null,
   },
 ];
 
 const ROLL = [
-  { event: "Food Marketing AL", names: "Dave Wrigley", result: "Finalist", year: "2003" },
-  { event: "Business Services Marketing", names: "Jackie Maher", result: "Finalist", year: "2005 & 2006" },
-  { event: "Business Services Marketing", names: "Jackie Lannutti", result: "Finalist", year: "2004" },
   { event: "Apparel & Accessories", names: "Paul Perry", result: "Finalist", year: "2001 & 2002" },
-  { event: "Business Law & Ethics", names: "Kratz & Kolodinsky", result: "Finalist", year: "2007" },
+  { event: "Food Marketing AL", names: "Dave Wrigley", result: "Finalist", year: "2003" },
   { event: "Entrepreneurship Written", names: "Catania / Haring / Maher", result: "Finalist — 16th", year: "2003" },
+  { event: "Business Services Marketing", names: "Jackie Lannutti", result: "Finalist", year: "2004" },
+  { event: "Business Services Marketing", names: "Jackie Maher", result: "Finalist", year: "2005 & 2006" },
   { event: "Food Marketing ML", names: "Edward J. Yorgey", result: "Top Ten", year: "2005" },
   { event: "Retail Merchandising AL", names: "Rachel Semigran", result: "Top Ten", year: "2005" },
   { event: "Retail Merchandising AL", names: "Tinuke Oyefule", result: "Finalist", year: "2005" },
-  { event: "Public Relations Project", names: "Ellick & Fox", result: "Finalist", year: "2013" },
+  { event: "Business Law & Ethics", names: "Kratz & Kolodinsky", result: "Finalist", year: "2007" },
   { event: "VB Challenge — Retailing", names: "Casey & Wolenter", result: "5th Place", year: "2007" },
   { event: "VB Challenge — Sports", names: "Nguyen / Marcinek / DeCarlo", result: "4th Place", year: "2007" },
+  { event: "Public Relations Project", names: "Ellick & Fox", result: "Finalist", year: "2013" },
 ];
 
 const SCHOLARSHIPS = [
@@ -98,37 +87,30 @@ export function ChampionsSection() {
           </p>
         </div>
 
-        <div className="bg-white/10 border border-white/15 p-8 mb-12 grid md:grid-cols-[auto_1fr] gap-8 items-center">
-          <Image
-            src={FEATURED.photo}
-            alt={FEATURED.names}
-            width={220}
-            height={280}
-            className="w-full max-w-[220px] h-auto mx-auto border border-white/20"
-          />
-          <div className="text-center md:text-left">
-            <p className="font-head font-black text-3xl uppercase mb-1">
-              {FEATURED.placement} Place, {FEATURED.year}
-            </p>
-            <p className="font-head font-bold text-[#8fc4ee] uppercase tracking-wide text-sm mb-2">
-              {FEATURED.event}
-            </p>
-            <p className="text-silver-light">{FEATURED.names}</p>
-          </div>
+        <div className="grid md:grid-cols-2 gap-6 mb-14">
+          {PHOTO_CHAMPIONS.map((c) => (
+            <div key={c.names} className="bg-white/10 border border-white/15 p-6 text-center">
+              <Image
+                src={c.photo}
+                alt={c.names}
+                width={500}
+                height={600}
+                className="w-full h-auto max-h-80 object-contain mx-auto mb-5 border border-white/20"
+              />
+              <p className="font-head font-black text-2xl uppercase mb-1">
+                {c.placement} Place, {c.year}
+              </p>
+              <p className="font-head font-bold text-[#8fc4ee] uppercase tracking-wide text-sm mb-2">
+                {c.event}
+              </p>
+              <p className="text-silver-light">{c.names}</p>
+            </div>
+          ))}
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-14">
-          {CHAMPIONS.map((c) => (
+        <div className="grid md:grid-cols-4 gap-6 mb-14">
+          {OTHER_CHAMPIONS.map((c) => (
             <div key={c.num} className="bg-white/5 border border-white/10 p-6">
-              {c.photo && (
-                <Image
-                  src={c.photo}
-                  alt={c.detail}
-                  width={400}
-                  height={300}
-                  className="w-full h-40 object-cover mb-4 border border-white/10"
-                />
-              )}
               <p className="font-head font-black text-xs text-white/40 mb-2">{c.num}</p>
               <p className="font-head font-black text-2xl text-[#4aa3e8] mb-1">{c.placement}</p>
               <p className="font-head font-bold uppercase text-sm mb-2">{c.event}</p>
