@@ -14,15 +14,39 @@ export function SiteFooter() {
             </p>
           </div>
 
-          <div className="flex flex-col gap-2 text-sm font-head font-bold">
-            <a href="#results" className="hover:text-white transition">
-              Results
+          <div className="grid grid-cols-2 gap-x-10 gap-y-2 text-sm font-head font-bold">
+            <a href="#pillars" className="hover:text-white transition">
+              Career Clusters
+            </a>
+            <a href="#why" className="hover:text-white transition">
+              Why DECA
+            </a>
+            <a href="#compete" className="hover:text-white transition">
+              Competitive Track
+            </a>
+            <a href="#champions" className="hover:text-white transition">
+              Hall of Champions
+            </a>
+            <a href="#officers" className="hover:text-white transition">
+              Leadership Team
+            </a>
+            <a href="#advisor" className="hover:text-white transition">
+              Advisor
+            </a>
+            <a href="#gallery" className="hover:text-white transition">
+              Gallery
+            </a>
+            <a href="#toolkit" className="hover:text-white transition">
+              Member Resources
             </a>
             <a href="#alumni" className="hover:text-white transition">
-              Alumni
+              Alumni Network
+            </a>
+            <a href="#involved" className="hover:text-white transition">
+              Get Involved
             </a>
             <a href="#awards" className="hover:text-white transition">
-              Awards
+              Chapter Awards
             </a>
             <a href="#join" className="hover:text-white transition">
               Join
@@ -43,6 +67,14 @@ export function SiteFooter() {
               className="hover:text-white transition"
             >
               DECA Inc.
+            </a>
+            <a
+              href="https://www.mypadeca.org/"
+              target="_blank"
+              rel="noopener"
+              className="hover:text-white transition"
+            >
+              Pennsylvania DECA
             </a>
             <Link href="/login" className="hover:text-white transition">
               Member Sign In

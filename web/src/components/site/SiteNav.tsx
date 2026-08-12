@@ -4,9 +4,15 @@ import Link from "next/link";
 import { useState } from "react";
 
 const LINKS = [
-  { href: "#results", label: "Results" },
+  { href: "#pillars", label: "Clusters" },
+  { href: "#why", label: "Why DECA" },
+  { href: "#compete", label: "Compete" },
+  { href: "#champions", label: "Champions" },
+  { href: "#officers", label: "Leadership" },
   { href: "#alumni", label: "Alumni" },
-  { href: "#awards", label: "Awards" },
+  { href: "#gallery", label: "Gallery" },
+  { href: "#toolkit", label: "Resources" },
+  { href: "#advisor", label: "Advisor" },
 ];
 
 export function SiteNav() {
@@ -14,27 +20,30 @@ export function SiteNav() {
 
   return (
     <nav className="sticky top-0 z-50 bg-paper/95 backdrop-blur border-b border-mist">
-      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-20">
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
         <a
           href="#top"
-          className="font-head font-black text-lg uppercase tracking-tight text-blue-night"
+          className="shrink-0 font-head font-black text-lg uppercase tracking-tight text-blue-night"
         >
           NAHS&nbsp;DECA
         </a>
 
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-4 overflow-x-auto">
           {LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="font-head font-bold text-sm text-ink hover:text-blue transition"
+              className="whitespace-nowrap font-head font-bold text-xs uppercase tracking-wide text-ink hover:text-blue transition"
             >
               {link.label}
             </a>
           ))}
+        </div>
+
+        <div className="hidden lg:flex items-center gap-4 shrink-0">
           <Link
             href="/login"
-            className="font-head font-bold text-sm text-silver hover:text-blue transition"
+            className="whitespace-nowrap font-head font-bold text-xs uppercase tracking-wide text-silver hover:text-blue transition"
           >
             Member Sign In
           </Link>
@@ -51,7 +60,7 @@ export function SiteNav() {
           aria-label="Toggle menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="md:hidden flex flex-col gap-1.5 p-2"
+          className="lg:hidden flex flex-col gap-1.5 p-2"
         >
           <span className="block w-6 h-0.5 bg-blue-night" />
           <span className="block w-6 h-0.5 bg-blue-night" />
@@ -60,7 +69,7 @@ export function SiteNav() {
       </div>
 
       {open && (
-        <div className="md:hidden border-t border-mist px-6 py-4 flex flex-col gap-4">
+        <div className="lg:hidden border-t border-mist px-6 py-4 flex flex-col gap-4">
           {LINKS.map((link) => (
             <a
               key={link.href}
