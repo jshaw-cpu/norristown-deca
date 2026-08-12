@@ -44,7 +44,7 @@ export function LeadersSection() {
               />
               <div>
                 <p className="font-head font-bold text-xs uppercase tracking-[0.2em] text-blue mb-2">
-                  Sponsor &amp; Judge Since 2012
+                  Judge Since 2012
                 </p>
                 <h3 className="font-head font-black text-2xl text-blue-night">
                   Dons Nguyen
@@ -52,9 +52,11 @@ export function LeadersSection() {
               </div>
             </div>
             <p className="text-ink text-sm leading-relaxed">
-              A Norristown DECA alum, Dons now volunteers as a judge in
-              business case competitions at the Regional, State, and
-              International levels. He also directs community outreach for
+              A Norristown DECA alum, Dons served three years as a
+              Pennsylvania DECA state officer, including roles as District
+              Representative and a member of the Executive Council. He now
+              volunteers as a judge in competitions at the Regional, State,
+              and International levels, and directs community outreach for
               Norristown Dreamers, a nonprofit providing scholarships to
               graduating NAHS seniors.
             </p>
