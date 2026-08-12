@@ -62,7 +62,8 @@ export function LeadersSection() {
             <p className="text-ink text-sm leading-relaxed">
               A Norristown DECA alum, Dons served three years as a
               Pennsylvania DECA state officer, including roles as District
-              Representative and a member of the Executive Council. He now
+              Representative and a member of the Executive Council, before
+              serving as State President in 2010&ndash;2011. He now
               volunteers as a judge in competitions at the Regional, State,
               and International levels, and directs community outreach for
               Norristown Dreamers, a nonprofit providing scholarships to
