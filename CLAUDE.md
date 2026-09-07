@@ -33,6 +33,18 @@ Single-file HTML recruitment website for Norristown Area High School DECA chapte
 - Large video files are git-ignored (see `.gitignore`).
 - No CI pipeline; push to `main` deploys automatically.
 
+## Assets
+- `assets/Images/` is a legacy archive (chapter media back to ~2015) — nothing in `index.html` references it. All images actually shown on the live site are embedded inline as base64 in `index.html`.
+- If a request mentions "gallery," "photos," or "images" without saying which, ask whether it means the embedded base64 images or the `assets/Images/` archive before touching either.
+
+## Working practices
+Follow these automatically, without being asked, on every change to this repo:
+- Before editing, identify the target by its section `id` or exact heading text. If a request doesn't make that clear, ask or grep to pin it down before editing — don't guess from a vague description.
+- For a single-fact change (a link, date, name, stat), quote the exact current text and confirm via grep whether it appears more than once in `index.html` before changing it.
+- For a request with multiple unrelated parts (e.g. a design change plus a tooling change, or content plus brand), do them as separate steps and summarize each one before moving to the next — don't fold them into one silent edit.
+- Before committing a brand/visual fix, list the specific off-palette colors, fonts, or shapes found. Get confirmation, then fix — don't auto-fix silently.
+- After any edit, state what changed and where (section id, line range) instead of just saying "done." Since there's no CI, also state how you verified it (grep for stale references, local `serve.ps1` check, visual read of the diff).
+
 ## What NOT to do
 - Don't split into multiple files or introduce a bundler unless explicitly asked.
 - Don't add npm/node tooling.
